@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.SpringApplication.demo.dao.BookRepository;
+import com.SpringApplication.demo.exception.BookNotFoundException;
 import com.SpringApplication.demo.model.Book;
+import com.SpringApplication.demo.model.BookRequest;
 
 @Service
 public class ServiceImpl implements IService{
@@ -40,6 +42,13 @@ public class ServiceImpl implements IService{
 	@Override
 	public void deleteBook(int id) {
 		sRepository.deleteById(id);
+		
+	}
+
+	@Override
+	public Book createBookRequest(BookRequest bkReq){
+		Book bk = Book.build(0, bkReq.getAuthor(), bkReq.getTitle(), bkReq.getCost());
+		return sRepository.save(bk);
 		
 	}
 
